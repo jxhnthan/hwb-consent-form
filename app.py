@@ -5,7 +5,11 @@ from dotenv import load_dotenv
 
 from dropbox_sign import Configuration, ApiClient, ApiException
 from dropbox_sign.api.signature_request_api import SignatureRequestApi
-from dropbox_sign.models import SignatureRequestSendWithTemplateRequest, SubSignatureRequestTemplateSigner
+from dropbox_sign.models import (
+    SignatureRequestSendWithTemplateRequest,
+    SubSignatureRequestTemplateSigner,
+    SubCC
+)
 
 load_dotenv()
 
@@ -33,11 +37,18 @@ def send_consent_form():
             email_address=data.get("signer2_email"),
         )
 
+        # Hardcoded CC for Admin role
+        cc1 = SubCC(
+            role="Admin",
+            email_address="snyq@nus.edu.sg"
+        )
+
         signature_request = SignatureRequestSendWithTemplateRequest(
             template_ids=[os.getenv("DROPBOX_TEMPLATE_ID")],
             subject="Consent Form",
             message="Please review and sign the consent form.",
             signers=[signer1, signer2],
+            ccs=[cc1],
             test_mode=True  # Set to False in production
         )
 
@@ -57,4 +68,5 @@ def send_consent_form():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
