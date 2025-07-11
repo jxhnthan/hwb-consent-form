@@ -9,10 +9,15 @@
 <body>
   <div class="container">
     <h2>Send Consent Form</h2>
+
     <div class="info-box">
-      <p>Please enter your NUS email and select your supervisor from the dropdown list. Once you submit the form, consent forms will be sent to both parties for digital signing.</p>
-      <p>There might be a slight delay of approximately ~30 seconds in receiving the automated email with the consent form. If you don't receive it within this timeframe, you can also log in directly to Dropbox Sign to access and sign the form there. Thank you for your patience! 😊</p>
+      <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+      <div>
+        <p>Please enter your NUS email and select your supervisor from the dropdown list. Once you submit the form, consent forms will be sent to both parties for digital signing.</p>
+        <p>There might be a slight delay of approximately ~30 seconds in receiving the automated email with the consent form. If you don't receive it within this timeframe, you can also log in directly to Dropbox Sign to access and sign the form there. Thank you for your patience! 😊</p>
+      </div>
     </div>
+
     <form id="testForm" novalidate>
       <label for="email1">Your NUS Email</label>
       <input
@@ -30,30 +35,23 @@
 
       <button type="submit" id="submitBtn">Send Consent Form</button>
     </form>
+
     <div id="result"></div>
   </div>
 
   <script type="module">
     const supervisorSelect = document.getElementById('supervisorSelect');
 
-    // Load supervisors from JSON and populate select
     async function loadSupervisors() {
       try {
         const response = await fetch('./supervisors.json');
         if (!response.ok) {
-            // Log a more specific error if the fetch fails
-            console.error(`Failed to load supervisors: HTTP status ${response.status} - ${response.statusText}`);
-            throw new Error('Failed to load supervisors');
+          console.error(`Failed to load supervisors: ${response.statusText}`);
+          throw new Error('Failed to load supervisors');
         }
         const supervisors = await response.json();
 
-        // Check if the supervisors array is empty or not an array
-        if (!Array.isArray(supervisors) || supervisors.length === 0) {
-            console.warn('Supervisors data is empty or not in expected array format.');
-            // Optionally, add a message to the user that no supervisors were loaded
-            // resultEl.textContent = 'No supervisors available.';
-            return; // Exit if no supervisors to add
-        }
+        if (!Array.isArray(supervisors) || supervisors.length === 0) return;
 
         supervisors.forEach(({ email, name }) => {
           const option = document.createElement('option');
@@ -63,8 +61,6 @@
         });
       } catch (err) {
         console.error('Error loading supervisors:', err);
-        // You might want to display this error to the user if critical
-        // resultEl.textContent = 'Error loading supervisor list. Please try again later.';
       }
     }
 
@@ -95,12 +91,12 @@
         const data = await res.json();
 
         if (data.success) {
-          resultEl.style.color = '#2a7f62'; // soft green
+          resultEl.style.color = '#2a7f62';
           resultEl.textContent = 'Consent form sent successfully!';
           form.reset();
           supervisorSelect.selectedIndex = 0;
         } else {
-          resultEl.style.color = '#c94c4c'; // soft red
+          resultEl.style.color = '#c94c4c';
           resultEl.textContent = 'Error: ' + data.error;
         }
       } catch (err) {
@@ -114,6 +110,7 @@
   </script>
 </body>
 </html>
+
 
 
 
