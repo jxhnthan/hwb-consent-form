@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); /* Added 500 and 700 for more flexibility */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   /* Define a color palette for easier management and consistency */
@@ -20,35 +20,35 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--background-light); /* Use CSS variable */
+  background: var(--background-light);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Use min-height for better content handling */
+  min-height: 100vh;
   margin: 0;
-  color: var(--text-color-light); /* Use CSS variable */
-  line-height: 1.6; /* Improve readability of text blocks */
+  color: var(--text-color-light);
+  line-height: 1.6;
 }
 
 .container {
-  background: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better legibility on busy backgrounds */
-  padding: 2rem; /* Slightly more padding for a roomier feel */
-  border-radius: 18px; /* Slightly more rounded */
-  box-shadow: 0 6px 16px var(--shadow-light); /* Slightly larger, softer shadow */
-  width: 90%; /* Responsive width for smaller screens */
-  max-width: 380px; /* Increased max-width slightly */
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 18px;
+  box-shadow: 0 6px 16px var(--shadow-light);
+  width: 90%;
+  max-width: 380px;
   box-sizing: border-box;
-  backdrop-filter: blur(12px); /* Slightly stronger blur for glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border for depth */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 h2 {
-  margin-bottom: 1.75rem; /* More space below heading */
-  font-weight: 700; /* Bolder heading for emphasis */
-  font-size: 1.75rem; /* Slightly larger heading */
+  margin-bottom: 1.75rem;
+  font-weight: 700;
+  font-size: 1.75rem;
   text-align: center;
-  color: var(--text-color-dark); /* Use CSS variable */
-  letter-spacing: -0.02em; /* Subtle letter spacing adjustment */
+  color: var(--text-color-dark);
+  letter-spacing: -0.02em;
 }
 
 /* Info box styling */
@@ -56,26 +56,31 @@ h2 {
   background-color: var(--info-background);
   border: 1px solid var(--info-border);
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1.5rem; /* Space below the info box */
+  /* Increased vertical padding to give more space */
+  padding: 1.2rem 1.1rem; /* Adjust horizontal and vertical padding */
+  margin-bottom: 1.5rem;
   color: var(--info-text);
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.6; /* Slightly increased line height for better readability */
 }
 
 .info-box p {
-  margin: 0; /* Remove default paragraph margin */
+  /* Added bottom margin to separate paragraphs more clearly */
+  margin: 0 0 0.8rem 0; /* Top, Right, Bottom, Left margin */
+}
+
+.info-box p:last-child {
+  margin-bottom: 0; /* Remove margin from the last paragraph in the info box */
 }
 
 label {
   display: block;
-  margin-bottom: 0.4rem; /* Slightly more space below label */
-  font-weight: 600; /* Bolder labels for better scannability */
-  font-size: 0.95rem; /* Slightly larger label font */
-  color: var(--text-color-medium); /* Use CSS variable */
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-color-medium);
 }
 
-/* Input fields (email, text, password, textarea) normal styling */
 input[type="email"],
 input[type="text"],
 input[type="password"],
@@ -90,14 +95,13 @@ textarea {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   background: var(--background-white);
   box-sizing: border-box;
-  cursor: text; /* normal text cursor */
-  appearance: auto; /* default input styling */
+  cursor: text;
+  appearance: auto;
   -webkit-appearance: none;
   -moz-appearance: none;
-  padding-right: 1rem; /* normal padding */
+  padding-right: 1rem;
 }
 
-/* Select dropdown styling with arrow */
 select {
   width: 100%;
   padding: 0.6rem 1rem;
@@ -125,7 +129,7 @@ input[type="text"]::placeholder,
 input[type="password"]::placeholder,
 textarea::placeholder {
   color: #a0a0a0;
-  opacity: 1; /* Firefox default opacity can be lower */
+  opacity: 1;
 }
 
 input[type="email"]:focus,
@@ -133,55 +137,55 @@ input[type="text"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  border-color: var(--primary-color); /* Use CSS variable */
+  border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.2); /* Softer, more spread focus ring */
+  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.2);
   background: var(--background-white);
 }
 
 button {
   width: 100%;
-  padding: 0.75rem 0; /* Slightly more vertical padding for larger button */
-  font-weight: 700; /* Bolder button text */
-  font-size: 1.05rem; /* Slightly larger button font */
+  padding: 0.75rem 0;
+  font-weight: 700;
+  font-size: 1.05rem;
   color: white;
-  background-color: var(--primary-color); /* Use CSS variable */
+  background-color: var(--primary-color);
   border: none;
-  border-radius: 8px; /* Slightly more rounded button */
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.1s ease; /* Add transform for subtle click effect */
-  letter-spacing: 0.02em; /* Subtle letter spacing */
+  transition: background-color 0.25s ease, transform 0.1s ease;
+  letter-spacing: 0.02em;
 }
 
 button:hover:not(:disabled) {
-  background-color: var(--primary-dark); /* Use CSS variable */
-  transform: translateY(-1px); /* Subtle lift on hover */
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
 }
 
 button:active:not(:disabled) {
-  transform: translateY(0); /* "Press" effect on click */
+  transform: translateY(0);
 }
 
 button:disabled {
   background-color: #a3c3e6;
-  cursor: not-allowed; /* Clearer indication for disabled state */
-  opacity: 0.7; /* Slightly dim disabled button */
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 #result {
-  margin-top: 1.25rem; /* More space above result message */
-  font-weight: 600; /* Bolder result message */
-  font-size: 0.98rem; /* Slightly larger result font */
+  margin-top: 1.25rem;
+  font-weight: 600;
+  font-size: 0.98rem;
   text-align: center;
-  min-height: 1.5rem; /* Ensure consistent height for messages */
-  color: var(--text-color-medium); /* Use CSS variable */
+  min-height: 1.5rem;
+  color: var(--text-color-medium);
 }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
   .container {
-    padding: 1.5rem; /* Reduce padding on very small screens */
-    border-radius: 12px; /* Slightly less rounded on small screens */
+    padding: 1.5rem;
+    border-radius: 12px;
   }
 
   h2 {
