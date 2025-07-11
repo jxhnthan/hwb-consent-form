@@ -26,7 +26,7 @@
       <label for="supervisorSelect">Supervisor</label>
       <select id="supervisorSelect" required>
         <option value="" disabled selected>Select a supervisor</option>
-        </select>
+      </select>
 
       <button type="submit" id="submitBtn">Send Consent Form</button>
     </form>
@@ -40,8 +40,20 @@
     async function loadSupervisors() {
       try {
         const response = await fetch('./supervisors.json');
-        if (!response.ok) throw new Error('Failed to load supervisors');
+        if (!response.ok) {
+            // Log a more specific error if the fetch fails
+            console.error(`Failed to load supervisors: HTTP status ${response.status} - ${response.statusText}`);
+            throw new Error('Failed to load supervisors');
+        }
         const supervisors = await response.json();
+
+        // Check if the supervisors array is empty or not an array
+        if (!Array.isArray(supervisors) || supervisors.length === 0) {
+            console.warn('Supervisors data is empty or not in expected array format.');
+            // Optionally, add a message to the user that no supervisors were loaded
+            // resultEl.textContent = 'No supervisors available.';
+            return; // Exit if no supervisors to add
+        }
 
         supervisors.forEach(({ email, name }) => {
           const option = document.createElement('option');
@@ -51,6 +63,8 @@
         });
       } catch (err) {
         console.error('Error loading supervisors:', err);
+        // You might want to display this error to the user if critical
+        // resultEl.textContent = 'Error loading supervisor list. Please try again later.';
       }
     }
 
