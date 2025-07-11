@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,7 +9,9 @@
 <body>
   <div class="container">
     <h2>Send Consent Form</h2>
-
+    <div class="info-box">
+      <p>Please enter your NUS email and select your supervisor from the dropdown list. Once submitted, consent forms will be sent to both parties for digital signing.</p>
+    </div>
     <form id="testForm" novalidate>
       <label for="email1">Your NUS Email</label>
       <input
@@ -23,8 +25,7 @@
       <label for="supervisorSelect">Supervisor</label>
       <select id="supervisorSelect" required>
         <option value="" disabled selected>Select a supervisor</option>
-        <!-- Options will be loaded dynamically -->
-      </select>
+        </select>
 
       <button type="submit" id="submitBtn">Send Consent Form</button>
     </form>
