@@ -61,21 +61,24 @@ h2 {
   font-size: 0.9rem;
   line-height: 1.6;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-start; /* Ensures content aligns to the top */
   gap: 0.75rem;
   position: relative;
+  overflow: hidden; /* Ensures content doesn't overflow if close button is too close */
 }
 
 .info-box::before {
   content: "ℹ️";
   font-size: 1.4rem;
-  line-height: 1.4;
   flex-shrink: 0;
-  margin-top: 0.1rem;
+  align-self: center; /* Vertically centers the icon within the flex container */
+  padding-top: 0.05rem; /* Small adjustment for visual alignment if needed */
 }
 
 .info-box p {
-  margin: 0 0 0.8rem 0;
+  margin: 0; /* Reset margins for paragraphs within the info box */
+  flex-grow: 1; /* Allows paragraphs to take up available space */
+  padding-right: 2rem; /* Prevents text from overlapping the close button */
 }
 
 .info-box p:last-child {
@@ -90,9 +93,16 @@ h2 {
   color: var(--info-text);
   position: absolute;
   right: 1rem;
-  top: 1rem;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for perfect vertical centering */
   cursor: pointer;
   line-height: 1;
+  padding: 0.25rem; /* Add some padding for easier clicking */
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: var(--primary-dark); /* Slightly darker on hover for feedback */
 }
 
 label {
