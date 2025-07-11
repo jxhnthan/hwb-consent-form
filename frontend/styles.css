@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Define a color palette for easier management and consistency */
-  --primary-color: #007acc; /* Your existing primary blue */
+  --primary-color: #007acc;
   --primary-dark: #005fa3;
   --text-color-dark: #111;
   --text-color-medium: #555;
@@ -11,11 +10,11 @@
   --background-white: #ffffff;
   --border-color-light: #ddd;
   --shadow-light: rgba(0,0,0,0.07);
-  --success-color: #28a745; /* Example for success messages */
-  --error-color: #dc3545;   /* Example for error messages */
-  --info-background: #e0f2f7; /* Light blue for info box */
-  --info-border: #90caf9; /* Medium blue for info box border */
-  --info-text: #2196f3; /* Darker blue for info box text */
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --info-background: #e0f2f7;
+  --info-border: #90caf9;
+  --info-text: #2196f3;
 }
 
 body {
@@ -56,21 +55,44 @@ h2 {
   background-color: var(--info-background);
   border: 1px solid var(--info-border);
   border-radius: 8px;
-  /* Increased vertical padding to give more space */
-  padding: 1.2rem 1.1rem; /* Adjust horizontal and vertical padding */
+  padding: 1.2rem 1.1rem;
   margin-bottom: 1.5rem;
   color: var(--info-text);
   font-size: 0.9rem;
-  line-height: 1.6; /* Slightly increased line height for better readability */
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.info-box::before {
+  content: "ℹ️";
+  font-size: 1.4rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
 }
 
 .info-box p {
-  /* Added bottom margin to separate paragraphs more clearly */
-  margin: 0 0 0.8rem 0; /* Top, Right, Bottom, Left margin */
+  margin: 0 0 0.8rem 0;
 }
 
 .info-box p:last-child {
-  margin-bottom: 0; /* Remove margin from the last paragraph in the info box */
+  margin-bottom: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--info-text);
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  line-height: 1;
 }
 
 label {
@@ -92,14 +114,8 @@ textarea {
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   background: var(--background-white);
   box-sizing: border-box;
-  cursor: text;
-  appearance: auto;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 1rem;
 }
 
 select {
@@ -110,37 +126,28 @@ select {
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   background: var(--background-white);
-  box-sizing: border-box;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
   background-image: url("data:image/svg+xml,%3csvg fill='%23777' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1rem;
   padding-right: 2.5rem;
+  cursor: pointer;
 }
 
-input[type="email"]::placeholder,
-input[type="text"]::placeholder,
-input[type="password"]::placeholder,
+input::placeholder,
 textarea::placeholder {
   color: #a0a0a0;
   opacity: 1;
 }
 
-input[type="email"]:focus,
-input[type="text"]:focus,
-input[type="password"]:focus,
+input:focus,
 textarea:focus,
 select:focus {
   border-color: var(--primary-color);
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.2);
-  background: var(--background-white);
 }
 
 button {
@@ -181,7 +188,7 @@ button:disabled {
   color: var(--text-color-medium);
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 480px) {
   .container {
     padding: 1.5rem;
@@ -193,9 +200,7 @@ button:disabled {
     margin-bottom: 1.25rem;
   }
 
-  input[type="email"],
-  input[type="text"],
-  input[type="password"],
+  input,
   textarea,
   select {
     padding: 0.5rem 0.75rem;
