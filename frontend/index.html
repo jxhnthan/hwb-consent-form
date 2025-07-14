@@ -11,18 +11,26 @@
     <h2>Contract Sender</h2>
 
     <div class="info-box">
-      <p>Please enter your NUS email and select your supervisor from the dropdown list.</p>
-      <p></p>Once you submit the form, consent forms will be sent to both parties for digital signing.</p>
-      <p>There might be a slight delay of approximately ~1 min in receiving the automated email with the consent form as we're using APIs.</p>
-      <p>If you don't receive the email (likely due to server lag), you can also log in directly to Dropbox Sign to access and sign the form there (under "Pending your Signature").</p>
+      <p>Please enter your full name and NUS email, then select your supervisor.</p>
+      <p>Once submitted, the consent form will be sent to you, your supervisor, and an admin for signing.</p>
+      <p>There might be a delay of ~1 min in receiving the email. If it doesn't arrive, you can log in directly to Dropbox Sign to find the pending document.</p>
     </div>
 
     <form id="testForm" novalidate>
+      <label for="name1">Your Full Name</label>
+      <input
+        type="text"
+        id="name1"
+        placeholder="e.g., Alex Tan"
+        required
+        autocomplete="name"
+      />
+
       <label for="email1">Your NUS Email</label>
       <input
         type="email"
         id="email1"
-        placeholder="supervisee@example.com"
+        placeholder="e.g., e1234567@u.nus.edu"
         required
         autocomplete="email"
       />
@@ -76,14 +84,19 @@
       submitBtn.textContent = 'Sending...';
 
       try {
+        // MODIFIED: Get names from the form inputs
+        const superviseeName = document.getElementById('name1').value;
+        const supervisorName = supervisorSelect.options[supervisorSelect.selectedIndex].text;
+
         const res = await fetch('https://hwb-consent-form.onrender.com/send-consent-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          // MODIFIED: Send the actual names in the request body
           body: JSON.stringify({
+            signer1_name: superviseeName,
             signer1_email: document.getElementById('email1').value,
+            signer2_name: supervisorName,
             signer2_email: supervisorSelect.value,
-            signer1_name: 'Supervisee',
-            signer2_name: 'Supervisor'
           }),
         });
 
@@ -109,7 +122,6 @@
   </script>
 </body>
 </html>
-
 
 
 
