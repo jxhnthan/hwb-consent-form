@@ -46,7 +46,7 @@ def send_consent_form():
         signature_request = SignatureRequestSendWithTemplateRequest(
             template_ids=[os.getenv("DROPBOX_TEMPLATE_ID")],
             subject="Consent Form",
-            message="Please review and sign the supervision contract. For any issues, please contact john.yap@nus.edu.sg"
+            message="Please review and sign the supervision contract. For any issues, please contact john.yap@nus.edu.sg",
             # UPDATED: Added the third signer to the list
             signers=[signer1, signer2, signer3],
             # REMOVED: The ccs parameter is no longer needed
