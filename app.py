@@ -61,7 +61,7 @@ def send_consent_form():
                 "For any issues, please contact john.yap@nus.edu.sg or snyq@nus.edu.sg"
             ),
             signers=[signer1, signer2, signer3],
-            test_mode=True  # Set to False for production
+            test_mode=False  # Set to False for production
         )
 
         try:
