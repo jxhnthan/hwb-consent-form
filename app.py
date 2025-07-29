@@ -58,7 +58,7 @@ def send_consent_form():
             title="Supervision Contract",            # Internal document title
             message=(
                 "Please review and sign the supervision contract.\n"
-                "For any issues, please contact john.yap@nus.edu.sg"
+                "For any issues, please contact john.yap@nus.edu.sg or snyq@nus.edu.sg"
             ),
             signers=[signer1, signer2, signer3],
             test_mode=True  # Set to False for production
