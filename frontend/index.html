@@ -11,12 +11,21 @@
     <h2>Contract Sender</h2>
 
     <div class="info-box">
-      <p>Please enter your NUS email and select your supervisor from the dropdown list.</p>
+      <p>Please enter your name, NUS email, and select your supervisor from the dropdown list.</p>
       <p>Once submitted, the consent form will be sent to you, your supervisor, and an admin for signing. There might be a short delay as we're using APIs to trigger the forms.</p>
       <p>If you do not receive an automated email (due to server lag), please access the form directly from <a href="https://app.hellosign.com/account/logIn">Dropbox Sign</a> (under pending your signature).</p>
     </div>
 
     <form id="testForm" novalidate>
+      <label for="name1">Your Name</label>
+      <input
+        type="text"
+        id="name1"
+        placeholder="Your full name"
+        required
+        autocomplete="name"
+      />
+
       <label for="email1">Your NUS Email</label>
       <input
         type="email"
@@ -40,7 +49,6 @@
   <script type="module">
     const supervisorSelect = document.getElementById('supervisorSelect');
 
-    // This function loads the supervisor list from a JSON file
     async function loadSupervisors() {
       try {
         const response = await fetch('./supervisors.json');
@@ -77,14 +85,15 @@
 
       try {
         const supervisorName = supervisorSelect.options[supervisorSelect.selectedIndex].text;
+        const signer1Name = document.getElementById('name1').value.trim();
+        const signer1Email = document.getElementById('email1').value.trim();
 
         const res = await fetch('https://hwb-consent-form.onrender.com/send-consent-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          // The body sends user's email and the selected supervisor's details
           body: JSON.stringify({
-            signer1_name: 'Supervisee',
-            signer1_email: document.getElementById('email1').value,
+            signer1_name: signer1Name,
+            signer1_email: signer1Email,
             signer2_name: supervisorName,
             signer2_email: supervisorSelect.value,
           }),
@@ -98,20 +107,7 @@
           form.reset();
           supervisorSelect.selectedIndex = 0;
         } else {
-          resultEl.style.color = '#c94c4c';
-          resultEl.textContent = 'Error: ' + data.error;
-        }
-      } catch (err) {
-        resultEl.style.color = '#c94c4c';
-        resultEl.textContent = 'Network error: ' + err.message;
-      }
 
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Consent Form';
-    });
-  </script>
-</body>
-</html>
 
 
 
