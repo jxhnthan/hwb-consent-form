@@ -51,13 +51,16 @@ def send_consent_form():
             email_address="snyq@nus.edu.sg"
         )
 
-        # Create the signature request with the updated subject/title
+        # Dynamic subject and title including supervisee name
+        subject_title = f"Supervision Contract – {supervisee_name}"
+
+        # Create the signature request with dynamic subject/title
         signature_request = SignatureRequestSendWithTemplateRequest(
             template_ids=[os.getenv("DROPBOX_TEMPLATE_ID")],
-            subject="Supervision Contract",          # Email subject
-            title="Supervision Contract",            # Internal document title
+            subject=subject_title,         # Dynamic email subject
+            title=subject_title,           # Dynamic internal document title
             message=(
-                "Please review and sign the supervision contract.\n"
+                f"Please review and sign the supervision contract for {supervisee_name}.\n"
                 "For any issues, please contact john.yap@nus.edu.sg or snyq@nus.edu.sg"
             ),
             signers=[signer1, signer2, signer3],
@@ -77,6 +80,7 @@ def send_consent_form():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
