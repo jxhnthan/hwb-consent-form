@@ -19,24 +19,30 @@ configuration = Configuration(username=os.getenv("DROPBOX_API_KEY"))
 
 @app.route("/send-consent-form", methods=["POST"])
 def send_consent_form():
-    data = request.json
+    data = request.json or {}
+
+    supervisee_name = data.get("signer1_name")
+    supervisee_email = data.get("signer1_email")
+    supervisor_name = data.get("signer2_name")
+    supervisor_email = data.get("signer2_email")
+
+    if not supervisee_name or not supervisee_email or not supervisor_name or not supervisor_email:
+        return jsonify({"success": False, "error": "Missing required fields"}), 400
 
     with ApiClient(configuration) as api_client:
         signature_api = SignatureRequestApi(api_client)
 
-        # Create signers matching your template roles exactly
+        # Map to template roles
         signer1 = SubSignatureRequestTemplateSigner(
             role="Supervisee",
-            name=data.get("signer1_name"),
-            email_address=data.get("signer1_email"),
+            name=supervisee_name,
+            email_address=supervisee_email,
         )
         signer2 = SubSignatureRequestTemplateSigner(
             role="Supervisor",
-            name=data.get("signer2_name"),
-            email_address=data.get("signer2_email"),
+            name=supervisor_name,
+            email_address=supervisor_email,
         )
-        
-        # ADDED: Hardcoded third signer for the Admin role
         signer3 = SubSignatureRequestTemplateSigner(
             role="Admin",
             name="Seanna Neo",
@@ -46,9 +52,12 @@ def send_consent_form():
         signature_request = SignatureRequestSendWithTemplateRequest(
             template_ids=[os.getenv("DROPBOX_TEMPLATE_ID")],
             subject="Consent Form",
-            message="Please review and sign the supervision contract. For any issues, please contact john.yap@nus.edu.sg",
+            message=(
+                "Please review and sign the supervision contract.\n"
+                "For any issues, please contact john.yap@nus.edu.sg"
+            ),
             signers=[signer1, signer2, signer3],
-            test_mode=True  # Set to False in production
+            test_mode=True  # Set to False for production
         )
 
         try:
@@ -60,12 +69,10 @@ def send_consent_form():
                 "request_id": response.signature_request.signature_request_id
             })
         except ApiException as e:
-            return jsonify({
-                "success": False,
-                "error": str(e)
-            }), 400
+            return jsonify({"success": False, "error": str(e)}), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
