@@ -107,6 +107,20 @@
           form.reset();
           supervisorSelect.selectedIndex = 0;
         } else {
+          resultEl.style.color = '#c94c4c';
+          resultEl.textContent = 'Error: ' + data.error;
+        }
+      } catch (err) {
+        resultEl.style.color = '#c94c4c';
+        resultEl.textContent = 'Network error: ' + err.message;
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Consent Form';
+    });
+  </script>
+</body>
+</html>
 
 
 
