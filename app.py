@@ -15,6 +15,7 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+# Initialize Dropbox Sign API configuration
 configuration = Configuration(username=os.getenv("DROPBOX_API_KEY"))
 
 @app.route("/send-consent-form", methods=["POST"])
@@ -26,7 +27,8 @@ def send_consent_form():
     supervisor_name = data.get("signer2_name")
     supervisor_email = data.get("signer2_email")
 
-    if not supervisee_name or not supervisee_email or not supervisor_name or not supervisor_email:
+    # Validate required fields
+    if not all([supervisee_name, supervisee_email, supervisor_name, supervisor_email]):
         return jsonify({"success": False, "error": "Missing required fields"}), 400
 
     with ApiClient(configuration) as api_client:
@@ -49,9 +51,11 @@ def send_consent_form():
             email_address="snyq@nus.edu.sg"
         )
 
+        # Create the signature request with the updated subject/title
         signature_request = SignatureRequestSendWithTemplateRequest(
             template_ids=[os.getenv("DROPBOX_TEMPLATE_ID")],
-            subject="Consent Form",
+            subject="Supervision Contract",          # Email subject
+            title="Supervision Contract",            # Internal document title
             message=(
                 "Please review and sign the supervision contract.\n"
                 "For any issues, please contact john.yap@nus.edu.sg"
