@@ -64,7 +64,7 @@ def send_consent_form():
                 "For any issues, please contact john.yap@nus.edu.sg or snyq@nus.edu.sg"
             ),
             signers=[signer1, signer2, signer3],
-            test_mode=False  # Set to False for production
+            test_mode=False  # Set to True for testing
         )
 
         try:
@@ -78,8 +78,12 @@ def send_consent_form():
         except ApiException as e:
             return jsonify({"success": False, "error": str(e)}), 400
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+
 
 
 
